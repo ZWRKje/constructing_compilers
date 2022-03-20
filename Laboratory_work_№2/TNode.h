@@ -7,14 +7,17 @@
 class TNode {
 protected:
 	int _areaSize;
+	std::string _areaName;
 	std::vector<TNode*> _chlids;
 public:
-	TNode() { _areaSize = 0; };
+	TNode() { _areaName = "Земля"; };
 	~TNode() {};
-	void setValue(char newAreaSize);
-	TNode* addChild(int newAreaSize);
+	void setSize(int newAreaSize);
+	void setName(std::string newAreaName);
 	int areaSize();
+	std::string areaName();
 	std::vector<TNode*> childs();
+	TNode* addChild(const int& newAreaSize,const std::string& newAreaName);
 };
 
 #endif 

@@ -3,25 +3,63 @@
 #include "TNode.h"
 #include <stack>
 #include <fstream>
+#include <locale>
 
-enum tCondition { W, S, E };
+enum tCondition { W, N, A, S, E };
 FILE* pFile;
 TNode root;
 TNode* parent = &root;
 TNode* lval = &root;
 std::stack<TNode*> st;
 
-
 void nextCh(std::ifstream& in, char& ch) {
 	in >> ch;
 }
 
+//void nextArea(std::ifstream& in, std::string& ch) {
+//	char smb;
+//	int count = 0;
+//
+//	std::string name = "";
+//	std::string buf = "";
+//	int size = 0;
+//	bool flag = false;
+//
+//	while (count != 2) {
+//		in.get(smb);
+//		if (smb == '|') {
+//			count++;
+//			continue;
+//		}
+//		if (smb == ':') {
+//			flag = true;
+//			continue;
+//		}
+//		if (flag) { // rework
+//			buf += smb;
+//		}
+//		else name += smb;
+//	};
+//	std::cout << name;
+//	std::cout << buf;
+//	size = std::stoi(buf);
+//
+//}
+
 enum tCondition change(enum tCondition cond, char ch) {
+	static std::string name = "";
+	static std::string buf = "";
+	static int size = 0;
+	if (name == "Область1") {
+		int a = 0;
+	}
 	switch (cond) {
 	case W: {
-		if (isdigit(ch)) {
-			lval = parent->addChild(ch);
-			return W;
+		if (ch == '|') {
+			return N;
+		}
+		if (ch == '\n') {
+			return S;
 		}
 		if (ch == '{') {
 			st.push(parent);
@@ -36,28 +74,41 @@ enum tCondition change(enum tCondition cond, char ch) {
 			else return S;
 			return W;
 		}
-		if (ch == '\n') {
-			if (!st.empty()) 
-				return E;
-			else
-				return S;
+	}
+	case N: {
+		if (ch != ':') {
+			name += ch;
+			return N;
+		}
+		if (ch == ':') {
+			return A;
+		}
+
+	}
+	case A: {
+		if (ch != '|') {
+			buf += ch;
+			return A;
+		}
+		if (ch == '|') {
+			size = std::stoi(buf);
+			lval = parent->addChild(size, name);
+			buf = name = "";
+			size = 0;
+			return W;
 		}
 	}
-	case E: {
-		std::cout << "Синтаксическая ошибка!! \n";
+	case S:{
 		return S;
 	}
-	case S: {
-		return S;
+	default: break;
 	}
-	default: return E;
-	};
-
-}
+};
 
 void printTree(TNode& elem, int ident) {
 	TNode* child;
-	std::cout << std::string(ident++, ' ') << elem.areaSize() << std::endl;
+	std::cout << std::string(ident++, ' ') << elem.areaName() << ": ";
+	std::cout << elem.areaSize() << std::endl;
 	for (auto& example : elem.childs()) {
 		child = example;
 		printTree(*child, ident);
@@ -67,6 +118,7 @@ void printTree(TNode& elem, int ident) {
 
 
 int main() {
+	std::setlocale(LC_ALL, "ru");
 	enum tCondition c = W;
 	char ch;
 	std::ifstream in("a.txt");
