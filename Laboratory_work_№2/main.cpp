@@ -22,7 +22,7 @@ int main() {
     std::ifstream in("a.txt");
     if (!in.is_open()) return 1;
 
-    while (exmpl.cond() != S) {
+    while ((exmpl.cond() != S) && (exmpl.cond() != E)) {
         in >> ch;
         exmpl.change(ch);
     }

@@ -1,7 +1,7 @@
 #include "TStateM.h"
 
 TStateM::TStateM() {
-    _cond = (tCondition)0;
+    _cond = W;
     _parent = &_root;
     _lval = &_root;
 }
@@ -10,6 +10,11 @@ void TStateM::change(char ch) {
     static std::string name = "";
     static std::string buf = "";
     static int size = 0;
+    if (dic.find(ch) == dic.end()) {
+        std::cout << "Недопустимы символ \n";
+        _cond = E;
+        return;
+    }
     switch (_cond) {
         case W: {
             if (ch == '|') {
