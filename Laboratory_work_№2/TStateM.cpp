@@ -22,6 +22,7 @@ void TStateM::change(char ch) {
                 break;
             }
             if (ch == '\n') {
+                _root.setSize(_root.childSize());
                 _cond = S;
                 break;
             }
@@ -36,6 +37,7 @@ void TStateM::change(char ch) {
                     _parent = st.top();
                     st.pop();
                 } else {
+                    _root.setSize(_root.childSize());
                     _cond = S;
                     break;
                 }
@@ -71,6 +73,7 @@ void TStateM::change(char ch) {
         }
         case S: {
             _cond = S;
+            _root.setSize(_root.childSize());
             break;
         }
         default:

@@ -2,9 +2,18 @@
 
 void TNode::setSize(int newAreaSize) { _areaSize = newAreaSize; }
 
+int TNode::childSize() {
+    int size = 0;
+    for (auto& elem : _chlids) {
+        size += elem->areaSize();
+    }
+    return size;
+};
+
 void TNode::setName(std::string newAreaName) { _areaName = newAreaName; }
 
 int TNode::areaSize() { return _areaSize; }
+
 std::string TNode::areaName() { return _areaName; }
 
 std::vector<TNode*> TNode::childs() { return _chlids; };

@@ -14,6 +14,7 @@ class TNode {
     TNode() { _areaName = "Земля"; };
     ~TNode(){};
     void setSize(int newAreaSize);
+    int childSize();
     void setName(std::string newAreaName);
     int areaSize();
     std::string areaName();

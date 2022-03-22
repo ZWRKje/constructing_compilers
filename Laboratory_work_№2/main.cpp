@@ -15,6 +15,25 @@ void printTree(TNode elem, int ident) {
     }
 }
 
+void isRealy(TNode elem) {
+    TNode* child;
+    int size = 0;
+    if (!elem.childs().empty()) {
+        for (auto& examale : elem.childs()) {
+            size += examale->areaSize();
+        }
+        if (elem.areaSize() != size) {
+            std::cout << "Неверные входные данные" << std::endl;
+            return;
+        }
+    }
+
+    for (auto& example : elem.childs()) {
+        child = example;
+        isRealy(*child);
+    }
+}
+
 int main() {
     std::setlocale(LC_ALL, "ru");
     TStateM exmpl;
@@ -27,6 +46,7 @@ int main() {
         exmpl.change(ch);
     }
 
+    isRealy(exmpl.root());
     printTree(exmpl.root(), 0);
 
     return 0;
