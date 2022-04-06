@@ -5,35 +5,6 @@
 #include "TNode.h"
 #include "TStateM.h"
 
-void printTree(TNode elem, int ident) {
-    TNode* child;
-    std::cout << std::string(ident++, ' ') << elem.areaName() << ": ";
-    std::cout << elem.areaSize() << std::endl;
-    for (auto& example : elem.childs()) {
-        child = example;
-        printTree(*child, ident);
-    }
-}
-
-void isRealy(TNode elem) {
-    TNode* child;
-    int size = 0;
-    if (!elem.childs().empty()) {
-        for (auto& examale : elem.childs()) {
-            size += examale->areaSize();
-        }
-        if (elem.areaSize() != size) {
-            std::cout << "Неверные входные данные" << std::endl;
-            return;
-        }
-    }
-
-    for (auto& example : elem.childs()) {
-        child = example;
-        isRealy(*child);
-    }
-}
-
 int main() {
     std::setlocale(LC_ALL, "ru");
     TStateM exmpl;
@@ -41,13 +12,23 @@ int main() {
     std::ifstream in("a.txt");
     if (!in.is_open()) return 1;
 
-    while ((exmpl.cond() != S) && (exmpl.cond() != E)) {
-        in >> ch;
-        exmpl.change(ch);
-    }
+    std::istreambuf_iterator<char> it(in);
+    std::istreambuf_iterator<char> oef;
+    std::string str(it, oef);
+    size_t i = 0;
 
-    isRealy(exmpl.root());
-    printTree(exmpl.root(), 0);
+    while ((exmpl.cond() != STOP) && (exmpl.cond() != ERROR)) {
+        ch = str[i];
+        exmpl.change(ch);
+        i++;
+    }
+    exmpl.isRealy(exmpl.root());
+
+    if (exmpl.cond() == ERROR) {
+        std::cout << "Неверные входные данные";
+        return 1;
+    }
+    exmpl.printTree(exmpl.root(), 0);
 
     return 0;
 }

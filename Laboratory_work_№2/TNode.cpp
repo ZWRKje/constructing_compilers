@@ -8,7 +8,7 @@ int TNode::childSize() {
         size += elem->areaSize();
     }
     return size;
-};
+}
 
 void TNode::setName(std::string newAreaName) { _areaName = newAreaName; }
 
@@ -16,7 +16,7 @@ int TNode::areaSize() { return _areaSize; }
 
 std::string TNode::areaName() { return _areaName; }
 
-std::vector<TNode*> TNode::childs() { return _chlids; };
+std::vector<TNode*> TNode::childs() { return _chlids; }
 
 TNode* TNode::addChild(const int& newAreaSize, const std::string& newAreaName) {
     TNode* newNode = new TNode();

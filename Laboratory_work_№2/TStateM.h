@@ -5,7 +5,7 @@
 
 #include "TNode.h"
 
-enum tCondition { W, N, A, S, E };
+enum tCondition { START, WORD, NUMBER, STOP, ERROR };
 
 class TStateM {
    private:
@@ -14,8 +14,8 @@ class TStateM {
         'Ж', 'ж', 'З', 'з', 'И', 'и', 'Й', 'й', 'К', 'к', 'Л', 'л', 'М', 'м',
         'Н', 'н', 'О', 'о', 'П', 'п', 'Р', 'р', 'С', 'с', 'Т', 'т', 'У', 'у',
         'Ф', 'ф', 'Х', 'х', 'Ц', 'ц', 'Ч', 'ч', 'Ш', 'ш', 'Щ', 'щ', 'Ъ', 'ъ',
-        'Ы', 'ы', 'Ь', 'ь', 'Э', 'э', 'Ю', 'ю', 'Я', 'я', ':', '|', '{', '}',
-        '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '\n'};
+        'Ы', 'ы', 'Ь', 'ь', 'Э', 'э', 'Ю', 'ю', 'Я', 'я', ':', '{', '}', '1',
+        '2', '3', '4', '5', '6', '7', '8', '9', '0', '\n'};
 
     enum tCondition _cond;
     TNode _root;
@@ -29,6 +29,8 @@ class TStateM {
     TNode root();
     tCondition cond();
     void change(char ch);
+    void printTree(TNode elem, int ident);
+    void isRealy(TNode elem);
 };
 
 #endif
