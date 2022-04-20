@@ -1,1 +1,2 @@
-for(abc1:=.;abc1<11.0E+1;abc1:=abc1>.1)do abc1:=abc1=34E5;
+while(acb1>10) abc1:=abc1=34E5; 
+a1:=abc1+10E5;done

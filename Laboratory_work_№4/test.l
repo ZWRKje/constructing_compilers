@@ -7,14 +7,14 @@
 digit[0-9]
 letter[a-zA-Z]
 delim[();]
-oper[<>=*]
-ws[ \t\n]
+oper[<>=]
+ws[\t\n]
 
 %%
-for { printf("KEYWORD (%d, %d): %s\n", yylineno, ch, yytext);
+while { printf("KEYWORD (%d, %d): %s\n", yylineno, ch, yytext);
     ch += yyleng;
     }
-do  { printf("KEYWORD (%d, %d): %s\n", yylineno, ch, yytext);
+done  { printf("KEYWORD (%d, %d): %s\n", yylineno, ch, yytext);
     ch += yyleng;
     }
 ("_"|{letter})("_"|{letter}|{digit})* {
