@@ -1,0 +1,2 @@
+while(abc1>abc3) abc1:=abc2=34E5;
+abc3:=abc2=34E5;done
